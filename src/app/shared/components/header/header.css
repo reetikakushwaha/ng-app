@@ -5,3 +5,9 @@
 .btn-dark:hover .bi {
   color: #fff !important; /* white on hover */
 }
+.navbar.navbar-expand-lg.navbar-dark.bg-dark.sticky-top{
+  top: 0;
+  z-index: 10300;
+  width: 100%;
+  position: fixed !important;
+}
