@@ -1,0 +1,8 @@
+::ng-deep .ngx-pagination .current {
+  padding: .1875rem .625rem;
+  background: #ffbb00 !important;
+  color: #000000 !important;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+}

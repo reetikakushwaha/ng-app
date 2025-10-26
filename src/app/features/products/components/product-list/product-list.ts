@@ -4,11 +4,12 @@ import { ProductService } from '../../services/product';
 import { Product } from '../../models/product.model';
 import { RouterModule } from '@angular/router';
 import { SliderComponent } from '../../../../shared/components/slider/slider';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'bajaj-product-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SliderComponent],
+  imports: [CommonModule, RouterModule, SliderComponent, NgxPaginationModule],
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.css']
 })
@@ -17,7 +18,10 @@ export class ProductListComponent implements OnInit {
   loading = true;
   error: string | null = null;
 
-  constructor(private productService: ProductService) {}
+  page: number = 1;
+  itemsPerPage: number = 4;
+
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
     this.productService.getAllProducts().subscribe({

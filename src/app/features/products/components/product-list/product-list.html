@@ -13,7 +13,10 @@
   </div>
 
   <div class="row g-4">
-    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let product of products">
+    <!-- <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let product of products"> -->
+    <div class="col-sm-6 col-md-4 col-lg-3"
+      *ngFor="let product of products | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+
       <div class="card shadow-sm h-100 border-0">
         <img [src]="product.images[0]" class="card-img-top" [alt]="product.name" />
 
@@ -32,11 +35,18 @@
         </div>
 
         <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
-          <a [routerLink]="['/products', product._id]" class="btn btn-sm btn-outline-dark">View</a>
+          <!-- <a [routerLink]="['/products', product._id]" class="btn btn-sm btn-outline-dark">View Details</a> -->
+           <a [routerLink]="['/products', product._id]" class="btn btn-sm btn-outline-dark">View Details</a>
+
           <button class="btn btn-sm btn-warning">Add to Cart</button>
         </div>
       </div>
     </div>
+    <!-- Pagination Controls -->
+    <div class="d-flex justify-content-center  ">
+      <pagination-controls (pageChange)="page = $event" previousLabel="← Prev" nextLabel="Next →"
+        class="pagination"></pagination-controls>
+    </div>
+
   </div>
 </div>
-
