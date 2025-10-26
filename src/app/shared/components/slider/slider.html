@@ -1,0 +1,13 @@
+<div id="hero" class="carousel slide hero-carousel mb-3" data-bs-ride="carousel">
+  <div class="carousel-inner rounded-3 overflow-hidden">
+    <div *ngFor="let img of images; let i = index" class="carousel-item" [class.active]="i===0">
+      <img [src]="img" class="d-block w-100" alt="slide">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#hero" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#hero" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>

@@ -1,0 +1,13 @@
+<!-- Slider -->
+<bajaj-slider></bajaj-slider>
+
+<!-- Products strip -->
+<div class="bg-white rounded-3 p-3 mb-3 border">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h5 class="mb-0">Top Picks</h5>
+    <a href="javascript:void(0)" class="text-secondary small">View all</a>
+  </div>
+  <div class="products-grid">
+    <bajaj-product-card *ngFor="let p of products" [product]="p"></bajaj-product-card>
+  </div>
+</div>

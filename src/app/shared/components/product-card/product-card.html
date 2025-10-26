@@ -1,0 +1,18 @@
+<div class="product-card h-100 d-flex flex-column">
+  <a [routerLink]="['/product', product.id]" class="d-block">
+    <img [src]="product.image" [alt]="product.title" class="product-thumb w-100">
+  </a>
+  <div class="p-3 d-flex flex-column gap-1 flex-grow-1">
+    <a [routerLink]="['/product', product.id]" class="fw-semibold text-dark">{{product.title}}</a>
+    <small class="text-muted" *ngIf="product.subtitle">{{product.subtitle}}</small>
+    <div class="mt-auto d-flex align-items-center justify-content-between">
+      <span class="fw-bold">{{ product.price | currency:'INR' }}</span>
+      <span class="badge bg-success-subtle text-success">
+        <i class="bi bi-star-fill"></i> {{product.rating}}
+      </span>
+    </div>
+    <div class="d-grid mt-2">
+      <a class="btn btn-outline-dark" [routerLink]="['/product', product.id]">Details</a>
+    </div>
+  </div>
+</div>

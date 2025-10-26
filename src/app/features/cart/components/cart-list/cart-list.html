@@ -1,0 +1,27 @@
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="bg-white p-3 rounded-3 border">
+      <h5 class="mb-3">Shopping Cart</h5>
+      <div *ngFor="let i of items" class="d-flex align-items-center justify-content-between py-2 border-bottom">
+        <div>
+          <div class="fw-semibold">{{i.title}}</div>
+          <small class="text-muted">Qty: {{i.qty}}</small>
+        </div>
+        <div class="fw-bold">{{ i.price * i.qty | currency:'INR' }}</div>
+      </div>
+      <div class="text-end mt-3">
+        <a routerLink="/" class="btn btn-outline-secondary btn-sm">Continue shopping</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="bg-white p-3 rounded-3 border">
+      <h6 class="mb-3">Summary</h6>
+      <div class="d-flex justify-content-between">
+        <span>Subtotal</span><span class="fw-semibold">{{ total | currency:'INR' }}</span>
+      </div>
+      <button class="btn btn-warning text-dark w-100 mt-3">Checkout</button>
+    </div>
+  </div>
+</div>

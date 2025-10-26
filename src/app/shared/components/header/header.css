@@ -1,0 +1,7 @@
+.navbar-brand { letter-spacing: .4px; }
+.bi {
+  color: #ffc107 !important; /* force yellow */
+}
+.btn-dark:hover .bi {
+  color: #fff !important; /* white on hover */
+}
