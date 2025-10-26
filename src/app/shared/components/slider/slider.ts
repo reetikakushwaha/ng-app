@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
 })
 export class SliderComponent {
   images = [
-    'https://picsum.photos/seed/hero1/1200/400',
-    'https://picsum.photos/seed/hero2/1200/400',
-    'https://picsum.photos/seed/hero3/1200/400'
+    'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1500&q=80', // Fashion accessories
+    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1500&q=80', // Electronics sale
   ];
+
 }

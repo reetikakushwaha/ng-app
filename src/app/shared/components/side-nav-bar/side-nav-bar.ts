@@ -9,6 +9,23 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./side-nav-bar.css']
 })
 export class SideNavBarComponent {
-  categories = ['Mobiles', 'Laptops', 'Headphones', 'Appliances', 'Cameras', 'Gaming'];
-  active = 'Mobiles';
+  // Updated e-commerce categories
+  categories = [
+    'Electronics',
+    'Fashion',
+    'Home & Kitchen',
+    'Sports & Fitness',
+    'Beauty & Health',
+    'Books & Stationery',
+    'Toys & Baby',
+    'Groceries',
+    'Automotive',
+    'Jewellery'
+  ];
+
+  active = this.categories[0]; // Default active category
+
+  setActive(category: string) {
+    this.active = category;
+  }
 }
