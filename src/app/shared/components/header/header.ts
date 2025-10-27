@@ -1,51 +1,31 @@
-// import { Component, EventEmitter, Output, Input } from '@angular/core';
-// import { Router, RouterLink } from '@angular/router';
-// import { CommonModule } from '@angular/common';
-// import { FormsModule } from '@angular/forms';
-
-// @Component({
-//   selector: 'bajaj-header',
-//   standalone: true,
-//   imports: [CommonModule, RouterLink, FormsModule],
-//   templateUrl: './header.html',
-//   styleUrls: ['./header.css']
-// })
-// export class HeaderComponent {
-//   query = '';
-//   @Output() search = new EventEmitter<string>();
-//   constructor(private router: Router){}
-
-//   onSubmit(){
-//     this.search.emit(this.query.trim());
-//     // For now just route to home; your product list will pick up query later
-//     this.router.navigateByUrl('/');
-//   }
-// }
-
-
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth'; // ✅ correct import
 
 @Component({
   selector: 'bajaj-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
 export class HeaderComponent {
-  @Output() menuToggle = new EventEmitter<void>();
   query = '';
 
-  constructor(private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
-  toggleMenu() {
-    this.menuToggle.emit();
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   onSubmit() {
-    this.router.navigateByUrl('/');
+    console.log('Searching for:', this.query);
+  }
+
+  toggleMenu() {
+    console.log('Sidebar toggled');
   }
 }

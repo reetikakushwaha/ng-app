@@ -1,1 +1,21 @@
-<p>profile works!</p>
+<div *ngIf="loading" class="text-center py-5">
+  <div class="spinner-border text-warning" role="status"></div>
+</div>
+
+<div *ngIf="error" class="alert alert-danger text-center">{{ error }}</div>
+
+<div *ngIf="user" class="container py-5">
+  <div class="card shadow-sm p-4 mx-auto" style="max-width: 600px;">
+    <h3 class="fw-bold text-center mb-4">👤 My Profile</h3>
+
+    <p><strong>Name:</strong> {{ user.name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Role:</strong> {{ user.role || 'Customer' }}</p>
+    <p><strong>Created:</strong> {{ user.createdAt | date:'medium' }}</p>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-dark px-4">Edit Profile</button>
+      <button class="btn btn-danger ms-2 px-4" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</div>

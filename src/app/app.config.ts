@@ -7,7 +7,11 @@ export const routes: Routes = [
   { path: '', loadComponent: () => import('./features/products/components/product-list/product-list').then(m => m.ProductListComponent) },
   // { path: 'products/:id', loadComponent: () => import('./features/products/components/product-detail/product-detail').then(m => m.ProductDetailComponent) },
   { path: 'cart', loadComponent: () => import('./features/cart/components/cart-list/cart-list').then(m => m.CartListComponent) },
-  { path: 'login', loadComponent: () => import('./features/users/components/login/login').then(m => m.Login) },
+  { path: 'login', loadComponent: () => import('./features/users/components/login/login').then(m => m.LoginComponent) },
+  { path: 'register', loadComponent: () => import('./features/users/components/register/register').then(m => m.RegisterComponent) },
+  { path: 'profile/:id', loadComponent: () => import('./features/users/components/profile/profile').then(m => m.ProfileComponent) },
+
+  { path: 'login', loadComponent: () => import('./features/users/components/login/login').then(m => m.LoginComponent) },
   {
     path: 'products/:id',
     loadComponent: () =>
@@ -17,6 +21,7 @@ export const routes: Routes = [
   },
   { path: '**', component: NotFoundComponent }
 ];
+
 
 export const appConfig: ApplicationConfig = {
   providers: [

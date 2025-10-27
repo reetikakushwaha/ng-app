@@ -3,19 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class ProductService {
-  private baseUrl = 'http://localhost:9090/api/products'; // your backend API
+  private apiUrl = 'http://localhost:9090/api/products';
 
   constructor(private http: HttpClient) {}
 
-  getAllProducts(): Observable<{ success: boolean; total: number; data: Product[] }> {
-    return this.http.get<{ success: boolean; total: number; data: Product[] }>(this.baseUrl);
+  // ✅ Fetch all products (with pagination)
+  getAllProducts(limit: number = 200, page: number = 1): Observable<{ success: boolean; data: Product[] }> {
+    return this.http.get<{ success: boolean; data: Product[] }>(`${this.apiUrl}?limit=${limit}&page=${page}`);
   }
 
-  getProductById(id: string): Observable<Product> {
-    return this.http.get<Product>(`${this.baseUrl}/${id}`);
+  // ✅ Fetch single product by ID
+  getProductById(id: string): Observable<{ success: boolean; data: Product }> {
+    return this.http.get<{ success: boolean; data: Product }>(`${this.apiUrl}/${id}`);
   }
 }

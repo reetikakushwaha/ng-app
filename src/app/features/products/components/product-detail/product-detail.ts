@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ProductService } from '../../services/product';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'bajaj-product-detail',
@@ -11,36 +12,39 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./product-detail.css']
 })
 export class ProductDetailComponent implements OnInit {
-  product: any;
+  product!: Product;
   loading = true;
   error: string | null = null;
+  starsArray: string[] = [];
+  selectedImage: string | null = null;
 
-  private apiUrl = 'http://localhost:9090/api/products'; // ✅ backend base URL
-
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit(): void {
-    const productId = this.route.snapshot.paramMap.get('id'); // ✅ get ID from route
-    if (productId) {
-      this.fetchProduct(productId);
-    } else {
-      this.error = 'Invalid product ID';
-      this.loading = false;
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.productService.getProductById(id).subscribe({
+        next: (res) => {
+          this.product = res.data; // ✅ Now TypeScript knows 'data' exists
+          this.generateStars(this.product.rating);
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error(err);
+          this.error = 'Failed to load product details';
+          this.loading = false;
+        }
+      });
     }
   }
 
-  fetchProduct(id: string): void {
-    this.loading = true;
-    this.http.get<any>(`${this.apiUrl}/${id}`).subscribe({
-      next: (data) => {
-        this.product = data.data || data; // ✅ some APIs wrap in { data: ... }
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error fetching product:', err);
-        this.error = 'Failed to load product details';
-        this.loading = false;
-      }
-    });
+  generateStars(rating: number): void {
+    this.starsArray = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+
+    for (let i = 0; i < fullStars; i++) this.starsArray.push('full');
+    if (hasHalfStar) this.starsArray.push('half');
+    while (this.starsArray.length < 5) this.starsArray.push('empty');
   }
 }

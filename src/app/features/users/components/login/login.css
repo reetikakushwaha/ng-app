@@ -1,0 +1,12 @@
+.card {
+  border: none;
+  border-radius: 12px;
+}
+.btn-warning {
+  background-color: #ffba00;
+  border: none;
+  color: #222;
+}
+.btn-warning:hover {
+  background-color: #e6a700;
+}

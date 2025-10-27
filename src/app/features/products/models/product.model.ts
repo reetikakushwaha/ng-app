@@ -1,4 +1,6 @@
 export interface Product {
+updatedAt: string|number|Date;
+createdAt: string|number|Date;
   _id: string;
   name: string;
   description: string;

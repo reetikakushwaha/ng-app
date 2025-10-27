@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
   error: string | null = null;
 
   page: number = 1;
-  itemsPerPage: number = 4;
+  itemsPerPage: number = 8;
 
   constructor(private productService: ProductService) { }
 
