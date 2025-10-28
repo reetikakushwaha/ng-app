@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +14,8 @@ import { AuthService } from '../../../core/services/auth'; // ✅ correct import
 export class HeaderComponent {
   query = '';
 
+  @Output() menuToggle = new EventEmitter<void>();
+
   constructor(public authService: AuthService, private router: Router) {}
 
   logout() {
@@ -26,6 +28,7 @@ export class HeaderComponent {
   }
 
   toggleMenu() {
+     this.menuToggle.emit();
     console.log('Sidebar toggled');
   }
 }
