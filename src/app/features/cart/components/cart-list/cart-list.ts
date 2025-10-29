@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService, CartItem } from '../../services/cart';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bajaj-cart',
@@ -13,7 +14,9 @@ import { RouterLink } from '@angular/router';
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.cartService.cartItems$.subscribe((items) => {
@@ -40,5 +43,18 @@ export class CartComponent implements OnInit {
   getTotal(): number {
     return this.cartService.getTotal();
   }
-  
+
+ checkout() {
+  if (this.cartItems.length === 0) {
+    alert('Your cart is empty!');
+    return;
+  }
+
+  // Navigate to checkout page
+  this.router.navigate(['/checkout']).then(() => {
+    // ✅ Clear cart AFTER navigation success
+    this.cartService.clearCart();
+    alert('Order placed successfully!');
+  });
+}
 }

@@ -4,6 +4,8 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { NotFoundComponent } from './core/components/not-found/not-found';
 import { ProductListComponent } from './features/products/components/product-list/product-list';
 import { CartComponent } from './features/cart/components/cart-list/cart-list';
+import { CheckoutComponent } from './features/checkout/components/checkoout/checkout/checkout';
+
 
 export const routes: Routes = [
   { path: '', loadComponent: () => import('./features/products/components/product-list/product-list').then(m => m.ProductListComponent) },
@@ -14,6 +16,7 @@ export const routes: Routes = [
   { path: 'profile/:id', loadComponent: () => import('./features/users/components/profile/profile').then(m => m.ProfileComponent) },
    { path: 'products', component: ProductListComponent }, 
    { path: 'cart', component: CartComponent },
+   { path: 'checkout', component: CheckoutComponent }, 
 
   { path: 'login', loadComponent: () => import('./features/users/components/login/login').then(m => m.LoginComponent) },
   {
