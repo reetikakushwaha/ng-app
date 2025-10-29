@@ -1,8 +1,10 @@
 <!-- Slider -->
 <bajaj-slider></bajaj-slider>
 
+
+ 
 <div class="container py-3">
-  <h2 class="text-center mb-4 fw-bold">🛍️ Our Products</h2>
+  <h2 class="text-center mb-4 fw-bold">🛍️ Our Products </h2>
 
   <div *ngIf="loading" class="text-center py-5">
     <div class="spinner-border text-warning" role="status"></div>
@@ -17,6 +19,11 @@
     <div class="col-sm-6 col-md-4 col-lg-3"
       *ngFor="let product of products | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
 
+
+      <div class="col-md-3">
+        <!-- Category List -->
+        <!-- <app-category-list [categories]="categories" (categorySelected)="filterByCategory($event)"></app-category-list> -->
+      </div>
       <div class="card shadow-sm h-100 border-0">
         <img [src]="product.images[0]" class="card-img-top" [alt]="product.name" />
 
@@ -36,9 +43,11 @@
 
         <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
           <!-- <a [routerLink]="['/products', product._id]" class="btn btn-sm btn-outline-dark">View Details</a> -->
-           <a [routerLink]="['/products', product._id]" class="btn btn-sm btn-outline-dark">View Details</a>
+          <a [routerLink]="['/products', product._id]" class="btn btn-sm btn-outline-dark">View Details</a>
 
-          <button class="btn btn-sm btn-warning">Add to Cart</button>
+          <!-- <button class="btn btn-sm btn-warning">Add to Cart</button> -->
+           <button class="btn btn-sm btn-warning" (click)="addToCart(product)">Add to Cart</button>
+
         </div>
       </div>
     </div>

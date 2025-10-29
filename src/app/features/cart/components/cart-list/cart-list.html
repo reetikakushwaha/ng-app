@@ -1,27 +1,61 @@
-<div class="row g-3">
-  <div class="col-lg-8">
-    <div class="bg-white p-3 rounded-3 border">
-      <h5 class="mb-3">Shopping Cart</h5>
-      <div *ngFor="let i of items" class="d-flex align-items-center justify-content-between py-2 border-bottom">
-        <div>
-          <div class="fw-semibold">{{i.title}}</div>
-          <small class="text-muted">Qty: {{i.qty}}</small>
-        </div>
-        <div class="fw-bold">{{ i.price * i.qty | currency:'INR' }}</div>
-      </div>
-      <div class="text-end mt-3">
-        <a routerLink="/" class="btn btn-outline-secondary btn-sm">Continue shopping</a>
-      </div>
-    </div>
+<div class="container py-5">
+  <h2 class="text-center mb-4 fw-bold">🛒 Your Cart</h2>
+
+  <div *ngIf="cartItems.length === 0" class="text-center text-muted">
+    <p>No items in your cart yet.</p>
+    <a routerLink="/products" class="btn btn-outline-dark">Continue Shopping</a>
   </div>
 
-  <div class="col-lg-4">
-    <div class="bg-white p-3 rounded-3 border">
-      <h6 class="mb-3">Summary</h6>
-      <div class="d-flex justify-content-between">
-        <span>Subtotal</span><span class="fw-semibold">{{ total | currency:'INR' }}</span>
-      </div>
-      <button class="btn btn-warning text-dark w-100 mt-3">Checkout</button>
+  <div *ngIf="cartItems.length > 0">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>
+            <div class="d-flex align-items-center">
+              <img
+                [src]="item.images?.[0] || 'https://via.placeholder.com/60'"
+                alt="{{ item.name }}"
+                class="me-3 rounded"
+                width="60"
+              />
+              <div>
+                <strong>{{ item.name }}</strong><br />
+                <small class="text-muted">{{ item.categoryId?.name }}</small>
+              </div>
+            </div>
+          </td>
+          <td>₹{{ item.price | number }}</td>
+          <td>
+            <div class="d-flex align-items-center">
+              <button class="btn btn-sm btn-outline-secondary" (click)="decrease(item._id)">−</button>
+              <span class="mx-2 fw-bold">{{ item.quantity }}</span>
+              <button class="btn btn-sm btn-outline-secondary" (click)="increase(item._id)">+</button>
+            </div>
+          </td>
+          <td>₹{{ item.price * item.quantity | number }}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="removeItem(item._id)">
+              🗑 Remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <h4>Total: ₹{{ getTotal() | number }}</h4>
+      <button class="btn btn-warning" (click)="clearCart()">Clear Cart</button>
+      <hr>
+      <button class="btn btn-dark" >💳 Checkout</button>
     </div>
   </div>
 </div>

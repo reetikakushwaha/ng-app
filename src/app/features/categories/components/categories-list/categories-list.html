@@ -1,1 +1,11 @@
-<p>categories-list works!</p>
+<div class="list-group">
+  <a
+    *ngFor="let category of categories"
+    href="#"
+    (click)="onCategoryClick(category)"
+    class="list-group-item list-group-item-action py-3"
+    [class.active]="activeCategory === category"
+  >
+    {{ category.name }}
+  </a>
+</div>

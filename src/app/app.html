@@ -8,9 +8,10 @@
   <div class="sidebar-overlay" [class.show]="sidebarOpen" (click)="closeSidebar()"></div>
 
   <!-- Mobile Sidebar Drawer -->
-  <div class="mobile-sidebar" [class.open]="sidebarOpen">
-    <bajaj-side-nav-bar></bajaj-side-nav-bar>
+   <div class="mobile-sidebar" [class.open]="sidebarOpen">
+    <bajaj-side-nav-bar (categorySelected)="onCategorySelected($event)"></bajaj-side-nav-bar>
   </div>
+  
 
   <!-- Main Body -->
   <div class="container-fluid py-3">
@@ -18,7 +19,7 @@
       <!-- Sidebar (Desktop) -->
       <div class="col-lg-2 d-none d-lg-block">
         <div class="app-sidebar rounded-3 p-2">
-          <bajaj-side-nav-bar></bajaj-side-nav-bar>
+          <bajaj-side-nav-bar (categorySelected)="onCategorySelected($event)"></bajaj-side-nav-bar>
         </div>
       </div>
 

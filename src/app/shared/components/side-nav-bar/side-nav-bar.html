@@ -2,7 +2,7 @@
   <a
     *ngFor="let category of categories"
     href="#"
-    (click)="setActive(category)"
+    (click)="onCategoryClick(category, $event)"
     class="list-group-item list-group-item-action py-3"
     [class.active]="active === category"
   >

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,6 +10,9 @@ import { CommonModule } from '@angular/common';
 })
 export class SideNavBarComponent {
   // Updated e-commerce categories
+
+  @Output() categorySelected = new EventEmitter<string>();
+
   categories = [
     'Electronics',
     'Fashion',
@@ -27,5 +30,10 @@ export class SideNavBarComponent {
 
   setActive(category: string) {
     this.active = category;
+  }
+  onCategoryClick(category: string, event?: Event) {
+    if (event) event.preventDefault();
+    this.active = category;
+    this.categorySelected.emit(category); // send selected category to parent
   }
 }

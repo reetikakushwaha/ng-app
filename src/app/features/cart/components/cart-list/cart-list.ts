@@ -1,18 +1,44 @@
-import { Component } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CartService, CartItem } from '../../services/cart';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'bajaj-cart-list',
+  selector: 'bajaj-cart',
   standalone: true,
-  imports: [CommonModule, RouterLink, CurrencyPipe],
+  imports: [CommonModule, RouterLink],
   templateUrl: './cart-list.html',
   styleUrls: ['./cart-list.css']
 })
-export class CartListComponent {
-  items = [
-    { id:1, title:'Noise Cancelling Headphones', price:7999, qty:1 },
-    { id:2, title:'Mechanical Keyboard', price:4999, qty:2 }
-  ];
-  get total(){ return this.items.reduce((s,x)=> s + x.price * x.qty, 0); }
+export class CartComponent implements OnInit {
+  cartItems: CartItem[] = [];
+
+  constructor(private cartService: CartService) {}
+
+  ngOnInit(): void {
+    this.cartService.cartItems$.subscribe((items) => {
+      this.cartItems = items;
+    });
+  }
+
+  increase(itemId: string) {
+    this.cartService.increaseQuantity(itemId);
+  }
+
+  decrease(itemId: string) {
+    this.cartService.decreaseQuantity(itemId);
+  }
+
+  removeItem(id: string) {
+    this.cartService.removeFromCart(id);
+  }
+
+  clearCart() {
+    this.cartService.clearCart();
+  }
+
+  getTotal(): number {
+    return this.cartService.getTotal();
+  }
+  
 }

@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product';
 import { Product } from '../../models/product.model';
+import { SideNavBarComponent } from '../../../../shared/components/side-nav-bar/side-nav-bar';
 
 @Component({
   selector: 'bajaj-product-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SideNavBarComponent],
   templateUrl: './product-detail.html',
   styleUrls: ['./product-detail.css']
 })
@@ -47,4 +48,6 @@ export class ProductDetailComponent implements OnInit {
     if (hasHalfStar) this.starsArray.push('half');
     while (this.starsArray.length < 5) this.starsArray.push('empty');
   }
+
+  
 }
