@@ -1,30 +1,78 @@
 <div class="container py-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
   <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
-    <h3 class="fw-bold text-center mb-4">📝 Register</h3>
+    <h3 class="fw-bold text-center mb-4">Register</h3>
 
-    <form (ngSubmit)="onSubmit()">
+    <!-- Added template reference #registerForm for validation -->
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Name -->
       <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input type="text" class="form-control" [(ngModel)]="name" name="name" required />
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" 
+               [(ngModel)]="name" name="name" #nameModel="ngModel" required />
+        <div *ngIf="nameModel.invalid && nameModel.touched" class="text-danger small mt-1">
+          Name is required.
+        </div>
       </div>
 
+      <!-- Email -->
       <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-control" [(ngModel)]="email" name="email" required />
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" 
+               [(ngModel)]="email" name="email" #emailModel="ngModel" required email />
+        <div *ngIf="emailModel.invalid && emailModel.touched" class="text-danger small mt-1">
+          A valid email is required.
+        </div>
       </div>
 
+      <!-- Password -->
       <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-control" [(ngModel)]="password" name="password" required />
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" 
+               [(ngModel)]="password" name="password" #passwordModel="ngModel" required minlength="6" />
+        <div *ngIf="passwordModel.invalid && passwordModel.touched" class="text-danger small mt-1">
+          <span *ngIf="passwordModel.errors?.['required']">Password is required.</span>
+          <span *ngIf="passwordModel.errors?.['minlength']">Password must be at least 6 characters.</span>
+        </div>
       </div>
 
+      <!-- Phone (New) -->
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone (Optional)</label>
+        <input type="tel" class="form-control" id="phone" 
+               [(ngModel)]="phone" name="phone" />
+      </div>
+
+      <!-- Role (New) -->
+      <fieldset class="mb-3">
+        <legend class="form-label fs-6">Account Type</legend>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="role" id="roleCustomer" 
+                 value="customer" [(ngModel)]="role" checked>
+          <label class="form-check-label" for="roleCustomer">
+            Customer
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="role" id="roleAdmin" 
+                 value="admin" [(ngModel)]="role">
+          <label class="form-check-label" for="roleAdmin">
+            Admin
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Error Message -->
       <div *ngIf="error" class="alert alert-danger py-2 text-center">{{ error }}</div>
 
-      <button class="btn btn-warning w-100" [disabled]="loading">
+      <!-- Submit Button -->
+      <!-- Added validation to disabled state -->
+      <button class="btn btn-warning w-100" [disabled]="loading || registerForm.invalid">
         <span *ngIf="!loading">Register</span>
         <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
       </button>
 
+      <!-- Login Link -->
       <p class="text-center mt-3 mb-0">
         Already have an account?
         <a routerLink="/login" class="text-warning text-decoration-none">Login</a>
